@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-32442": {
+      "hosting": {
+        "angular-firebase": [
+          "angular-32442"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-32442"
+  }
+}
