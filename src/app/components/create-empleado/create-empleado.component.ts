@@ -15,31 +15,41 @@ export class CreateEmpleadoComponent implements OnInit {
   submitted = false;
   title = "Agregar Empleado";
   loading = false;
+  id: string | null; 
 
   constructor(private fb: FormBuilder, 
               private _empleadoService: EmpleadoService, 
               private route: Router,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private aRoute: ActivatedRoute) {
     this.createEmpleado = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       documento: ['', Validators.required],
       salario: ['', Validators.required]
     })
-
+    this.id = aRoute.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
-    // this.esEditar();
+    this.esEditar();
   }
 
-  agregarEmpleado() {
+  agregarEditarEmpleado() {
     this.submitted = true;
 
     if(this.createEmpleado.invalid){
       return;
     }
 
+    if(this.id == null) {
+      this.agregarEmpleado()
+    } else {
+      this.editarEmpleado(this.id);
+    }
+  }
+
+  agregarEmpleado() {
     const empleado: any = {
       nombre: this.createEmpleado.value.nombre,
       apellido: this.createEmpleado.value.apellido,
@@ -58,5 +68,35 @@ export class CreateEmpleadoComponent implements OnInit {
     })
   }
 
+  esEditar() {
+    this.title = 'Editar empleado'
+    if(this.id != null) {
+      this.loading = true;
+      this._empleadoService.getEmpleado(this.id).subscribe(data => {
+        this.loading = false;
+        this.createEmpleado.setValue({
+          nombre: data.payload.data()['nombre'],
+          apellido: data.payload.data()['apellido'],
+          documento: data.payload.data()['documento'],
+          salario: data.payload.data()['salario']
+        })
+      })
+    }
+  }
 
+  editarEmpleado(id: string) {
+    const empleado: any = {
+      nombre: this.createEmpleado.value.nombre,
+      apellido: this.createEmpleado.value.apellido,
+      documento: this.createEmpleado.value.documento,
+      salario: this.createEmpleado.value.salario,
+      fechaActualizacion: new Date()
+    }
+    this.loading = true;
+    this._empleadoService.actualizarEmpleado(id, empleado).then(() =>{
+      this.loading = false;
+      this.toastr.info("Empleado actualizado", "Empleado actualizado")
+      this.route.navigate(['/list-empleados']);
+    })
+  }
 }

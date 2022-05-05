@@ -9,7 +9,7 @@
                         </div>
                     </h3>
                     <span *ngIf="submitted && createEmpleado.invalid">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
-                    <form class="mt-4" [formGroup]="createEmpleado" (ngSubmit)="agregarEmpleado()">
+                    <form class="mt-4" [formGroup]="createEmpleado" (ngSubmit)="agregarEditarEmpleado()">
                         <div class="row">
                             <div class="col">
                                 <input type="text" class="form-control form-control-lg" formControlName="nombre"

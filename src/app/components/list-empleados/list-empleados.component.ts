@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore,collectionData,collection } from '@angular/fire/firestore';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 
@@ -11,7 +12,7 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
 export class ListEmpleadosComponent implements OnInit {
   empleados: any[] = [];
 
-  constructor(private __empleadoService: EmpleadoService) {
+  constructor(private __empleadoService: EmpleadoService, private toastr: ToastrService) {
 
   }
 
@@ -31,8 +32,9 @@ export class ListEmpleadosComponent implements OnInit {
     });
   }
 
-  eliminarEmpledo(id: string) {
+  eliminarEmpleado(id: string) {
     this.__empleadoService.eliminarEmpleado(id).then(() => {
+      this.toastr.success('Empleado eliminado exitosamente', 'Empleado Eliminado')
       console.log("Empleado eliminado con éxito");
     }).catch(error =>{
       console.log(error)
