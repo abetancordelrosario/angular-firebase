@@ -1,6 +1,6 @@
 Este es un proyecto para la asignatura de Desarrollo de Aplicaciones Web II de la ULPGC en el que se propuso crear un CRUD con la platarforma para el desarrollo de aplicacones web/móbil Firebase, junto con su base de datos no relacional (NoSQL), en este caso Firestore. También se hizo énfasis en el uso del enrutamiento y navegación. 
 
-En este caso, se ha realizado un CRUD sobre empleados de una empresa en el que se indican datos como nombre, apellidos, documento y salario.
+En este caso, se ha realizado un CRUD sobre empleados de una empresa en el que se indican datos como nombre, apellidos, documento y salario. Además, recalcar el uso de las libreías Boostrap y ngx-toastr en la mejora de la estética y las animaciones del sitio web.
 
 Dependencias:
 
